@@ -6,11 +6,12 @@ instead to rely on OpenID for their needs. Will store user models and associate 
 to build local profiles associated with a users's OpenID but DOES NOT support non-OpenID account creation. Refer em to
 an OpenID provider instead (tip: use www.idselector.com), or run your own.
 
-This work is based on Rick Olson's Restful Authentication plugin and the original OpenID Authentication plugin for Rails. 
-However, many of the extra features of the former plugin have been removed for streamlined simplicity. If you want a
-highly customizable authentication system that supports traditional local accounts as well as OpenID and has all the 
-ells and whistles, install those two plugins and write a bit of code to integrate them. If you just want a barebones
-basic OpenID-based authentication system and a user model, this plugin should do the trick right out of the box.
+This work is based on Rick Olson's Restful Authentication plugin and the original OpenID Authentication plugin for 
+Rails. However, many of the extra features of the former plugin have been removed for streamlined simplicity. If you 
+want a highly customizable authentication system that supports traditional local accounts as well as OpenID and has all
+the bells and whistles, install those two plugins and write a bit of code to integrate them. On the other hand, if you
+just need a barebones OpenID-based authentication system and a user model, this plugin should do the trick right out of
+the box.
 
 
 Prerequisites
@@ -41,9 +42,9 @@ associated with it). It will also create a SessionsController and the new sessio
 the required routes.
 
 The SessionsController allows you to specify any optional fields you wish to populate in the User model from Simple
-Registration (sreg) data. We recommend that you create a UsersController and have the SessionsController redirect to its
-#edit action after successfully creating an account. That way, you can allow your users to specify additional profile data
-if it was not obtained via sreg.
+Registration (sreg) data. We recommend that you create a UsersController and have the SessionsController redirect to 
+its #edit action after successfully creating an account. That way, you can allow your users to specify additional 
+profile data if it was not obtained via sreg.
 
 Note that, with OpenID, both the signup and login portions are treated the same; they're both handled via the
 SessionsController's #create action. You may wish to add a redirect for the #new action on UsersController to
@@ -55,6 +56,6 @@ Credits
 =======
 
 Portions belonging to the original Rails OpenId Authentication plugin (c) 2008 David Heinemeier Hansson.
-Portsions belonging to the Restful Authentication plugin original (c) 2008 Rick Olson.
+Portions belonging to the Restful Authentication plugin original (c) 2008 Rick Olson.
 
 All other work (c) 2008 Nick Plante. This plugins is released under the MIT license.
