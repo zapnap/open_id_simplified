@@ -1,0 +1,8 @@
+Description:
+    Generates a stock User model and a Sessions controller for
+    handling Open ID logins (when there's no need for standalone
+    user accounts).
+ 
+Example:
+    ./script/generate authenticated
+ 

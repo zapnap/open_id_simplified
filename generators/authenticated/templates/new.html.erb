@@ -1,0 +1,7 @@
+<% form_tag(session_url) do %>
+  <div>
+    <label for="url">OpenID URL:</label>
+    <%= text_field_tag(:openid_identifier) %>
+    <%= submit_tag('Sign In') %>
+  </div>
+<% end %>
