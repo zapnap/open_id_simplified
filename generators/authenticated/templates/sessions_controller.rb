@@ -1,4 +1,9 @@
 class SessionsController < ApplicationController
+  before_filter :login_required, :except => [:new, :create]
+
+  def new
+  end
+
   def create
     @open_id_url = params[:openid_identifier]
     if request.post? || using_open_id?
@@ -7,42 +12,42 @@ class SessionsController < ApplicationController
         if !result.successful?
           flash.now[:error] = result.message
           render(:action => 'new')
-        elsif !(identity_url = IdentityUrl.find_or_create_by_url(identity_url))
-          flash.now[:error] = "No user with OpenID URL #{identity_url}"
-          render(:action => 'new')
         else
-          if identity_url.user.nil?
+          identity_url_model = IdentityUrl.find_or_create_by_url(identity_url)
+          if identity_url_model.user.nil?
             flash.now[:notice] = "Thanks for signing up!"
-            identity_url.create_user && identity_url.save
+            identity_url_model.create_user && identity_url_model.save
           end
 
-          self.current_user = identity_url.user
+          self.current_user = identity_url_model.user
           assign_registration_attributes!(registration)
-          redirect_to(root_path)
+          redirect_to('/')
         end
       end
+    else
+      render(:action => 'new')
     end
   end
 
   def destroy
     self.current_user = nil
-    redirect_to(root_path)
+    redirect_to('/')
   end
 
 private
 
-  # registration is a hash containing the valid sreg keys
-  # use this to assign returned values to user model attributes
+  # registration is a hash containing the valid sreg keys given above
+  # use this to map them to fields of your user model
   def assign_registration_attributes!(registration)
     model_to_registration_mapping.each do |model_attribute, registration_attribute|
       unless registration[registration_attribute].blank?
         @current_user.send("#{model_attribute}=", registration[registration_attribute])
       end
     end
+
     @current_user.save
   end
 
-  # maps sreg keys/attributes to user model attributes
   def model_to_registration_mapping
     { :nickname => 'nickname', :email => 'email' }
   end

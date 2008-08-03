@@ -17,9 +17,9 @@ the box.
 Prerequisites
 =============
 
-You need Rails 2.1. You also need JanRain's excellent ruby-openid gem:
+You need Rails 2.1. You also need Mocha and JanRain's excellent ruby-openid gem:
 
-  gem install ruby-openid
+  gem install ruby-openid mocha
 
 To understand what OpenID is about and how it works, check the documentation for lib/openid/consumer.rb.
 

@@ -13,9 +13,11 @@ class AuthenticatedGenerator < Rails::Generator::Base
 
       m.file 'user_test.rb', 'test/unit/user_test.rb'
       m.file 'identity_url_test.rb', 'test/unit/identity_url_test.rb'
+      m.file 'sessions_controller_test.rb', 'test/functional/sessions_controller_test.rb'
 
       m.add_routes :session, 'routes.rb'
       m.config_gem 'ruby-openid', :lib => 'openid', :version => '>= 2.0.4'
+      m.config_gem 'mocha', :version => '>= 0.9.0'
     end
   end
 end
