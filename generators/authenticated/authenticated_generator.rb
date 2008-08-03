@@ -7,8 +7,12 @@ class AuthenticatedGenerator < Rails::Generator::Base
       m.file 'user.rb', 'app/models/user.rb'
       m.file 'identity_url.rb', 'app/models/identity_url.rb'
       m.file 'sessions_controller.rb', 'app/controllers/sessions_controller.rb'
+
       m.directory 'app/views/sessions'
       m.file 'new.html.erb', 'app/views/sessions/new.html.erb'
+
+      m.file 'user_test.rb', 'test/unit/user_test.rb'
+      m.file 'identity_url_test.rb', 'test/unit/identity_url_test.rb'
 
       m.add_routes :session, 'routes.rb'
       m.config_gem 'ruby-openid', :lib => 'openid', :version => '>= 2.0.4'
