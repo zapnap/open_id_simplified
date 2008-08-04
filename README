@@ -2,9 +2,11 @@ OpenIdSimplified
 ================
 
 Provides a simple authentication system for web applications that don't need a full user registration system and choose
-instead to rely on OpenID for their needs. Will store user models and associate them with identity URLs, allowing you
-to build local profiles associated with a users's OpenID but DOES NOT support non-OpenID account creation. Refer em to
-an OpenID provider instead (tip: use www.idselector.com), or run your own.
+instead to rely completely on OpenID for their needs. Will store user models and associate them with identity URLs,
+allowing you to build local profiles associated with a users's OpenID but DOES NOT support non-OpenID account creation. 
+Refer em to an existing OpenID provider instead (TIP: use the ID Selector available at idselector.com), or run your
+provider. Many larger providers offer affiliate programs that allow you to brand their signup processes and redirect
+users back to your website when finished.
 
 This work is based on Rick Olson's Restful Authentication plugin and the original OpenID Authentication plugin for 
 Rails. However, many of the extra features of the former plugin have been removed for streamlined simplicity. If you 
@@ -48,9 +50,13 @@ profile data if it was not obtained via sreg.
 
 Note that, with OpenID, both the signup and login portions are treated the same; they're both handled via the
 SessionsController's #create action. You may wish to add a redirect for the #new action on UsersController to
-SessionsController.
+SessionsController. We recommend integrating the ID Selector available at http://idselector.com into your login form
+for increased usability. You just need at add one (generated) piece of JavaScript to the new.html.erb template to make 
+it work.
 
-These are merely a few suggestions; the generated sources should work fine with or without these modifications!
+These are merely a few suggestions; the generated sources should work fine with or without these modifications! The
+only other thing you will absolutely have to do is add a mapping for the application root to your routes with a
+map.root directive.
 
 Credits
 =======
