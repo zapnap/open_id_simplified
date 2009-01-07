@@ -30,8 +30,8 @@ class CreateOpenIdTables < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :open_id_nonces
-    drop_table :open_id_associations
+    drop_table :open_id_authentication_nonces
+    drop_table :open_id_authentication_associations
     drop_table :identity_urls
     drop_table :users
   end
