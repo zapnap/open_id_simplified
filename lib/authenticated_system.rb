@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 module AuthenticatedSystem
   protected
     # Returns true or false if the user is logged in.
@@ -184,9 +186,9 @@ module AuthenticatedSystem
     end
 
     def make_remember_token
-      secure_digest(Time.now, (1..10).map { rand.to_s })
+      Digest::SHA1.hexdigest("#{Time.now}--#{(1..10).map { rand.to_s }}")
     end
-  
+
     def kill_remember_cookie!
       cookies.delete :auth_token
     end
