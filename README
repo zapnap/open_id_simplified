@@ -64,4 +64,8 @@ Credits
 Portions belonging to the original Rails OpenId Authentication plugin (c) 2008 David Heinemeier Hansson.
 Portions belonging to the Restful Authentication plugin original (c) 2008 Rick Olson.
 
+Contributors
+* Randy Schmidt (r38y)
+* Marko Anastasov (markoa)
+
 All other work (c) 2008 Nick Plante. This plugin is released under the MIT license.
