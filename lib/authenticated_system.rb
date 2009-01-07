@@ -120,8 +120,7 @@ module AuthenticatedSystem
     # havoc with forgery protection, and is only strictly necessary on login.
     # However, **all session state variables should be unset here**.
     def logout_keeping_session!
-      # Kill server-side auth cookie
-      @current_user.forget_me if @current_user.is_a? User
+      forget_user!              # kill server-side auth token
       @current_user = false     # not logged in, and don't do it for me
       kill_remember_cookie!     # Kill client-side auth cookie
       session[:user_id] = nil   # keeps the session but kill our variable
@@ -141,10 +140,6 @@ module AuthenticatedSystem
     #
     # Cookies shouldn't be allowed to persist past their freshness date,
     # and they should be changed at each login
-
-    # Cookies shouldn't be allowed to persist past their freshness date,
-    # and they should be changed at each login
-
     def valid_remember_cookie?
       return nil unless @current_user
       (@current_user.remember_token?) && 
@@ -155,11 +150,41 @@ module AuthenticatedSystem
     def handle_remember_cookie! new_cookie_flag
       return unless @current_user
       case
-      when valid_remember_cookie? then @current_user.refresh_token # keeping same expiry date
-      when new_cookie_flag        then @current_user.remember_me 
-      else                             @current_user.forget_me
+      when valid_remember_cookie? then refresh_token!
+      when new_cookie_flag        then remember_user!
+      else                             forget_user!
       end
       send_remember_cookie!
+    end
+
+    # Forget server side auth token
+    def forget_user!
+      if @current_user.is_a? User
+        @current_user.remember_token_expires_at = nil
+        @current_user.remember_token = nil
+        @current_user.save(false)
+      end
+    end
+
+    # Set fields required for remembering users from cookie
+    def remember_user!(time = 2.weeks)
+      if @current_user.is_a? User
+        @current_user.remember_token_expires_at = time.from_now.utc
+        @current_user.remember_token = make_remember_token
+        @current_user.save(false)
+      end
+    end
+
+    # Refresh user token, keeping same expiry date
+    def refresh_token!
+      if @current_user.is_a? User
+        @current_user.remember_token = make_remember_token
+        @current_user.save(false)
+      end
+    end
+
+    def make_remember_token
+      secure_digest(Time.now, (1..10).map { rand.to_s })
     end
   
     def kill_remember_cookie!
