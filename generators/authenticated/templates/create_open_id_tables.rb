@@ -10,7 +10,7 @@ class CreateOpenIdTables < ActiveRecord::Migration
 
     create_table :identity_urls, :force => true do |t|
       t.integer :user_id
-      t.text    :url
+      t.string  :url
       t.timestamps
     end
 
