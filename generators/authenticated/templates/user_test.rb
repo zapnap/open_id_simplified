@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserTest < Test::Unit::TestCase
+class UserTest < ActiveSupport::TestCase
   def test_should_create_user
     assert_difference 'User.count' do
       user = User.new

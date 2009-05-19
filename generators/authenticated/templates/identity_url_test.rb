@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class IdentityUrlTest < Test::Unit::TestCase
+class IdentityUrlTest < ActiveSupport::TestCase
   def test_should_create_identity_url
     assert_difference 'IdentityUrl.count' do
       identity_url = IdentityUrl.new(:url => "http://id.myopenid.com")
